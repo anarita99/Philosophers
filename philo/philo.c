@@ -6,12 +6,11 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2025/08/26 12:58:07 by adores           ###   ########.fr       */
+/*   Updated: 2025/09/02 12:41:19 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <pthread.h>
+#include "philo.h"
 
 void *computation(void *add)
 {
