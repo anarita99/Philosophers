@@ -6,11 +6,11 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:12:07 by adores            #+#    #+#             */
-/*   Updated: 2025/12/14 11:40:41 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/14 18:43:30 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //printd
+#include <stdio.h> //printf
 #include <stdlib.h> //malloc
 #include <unistd.h> // write, usleep
 #include <sys/time.h> //gettimeofday
@@ -19,17 +19,12 @@
 #include <stdbool.h>
 
 typedef struct s_data t_data;
-typedef struct s_fork
-{
-	pthread_mutex_t	fork;
-	int				fork_id; //which fork the philo has taken
-}	t_fork;
 
 typedef struct s_philo
 {
 	int		philo_id;
-	t_fork	*left_fork;
-	t_fork	*right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	long	nb_of_meals;
 	bool	full;
 	long	last_meal_time; //horas do ultimo meal
@@ -46,7 +41,7 @@ typedef struct s_data
 	long	limit_meals;
 	long	start_simulation;
 	bool	end_simulation; // a philo dies or all philos full
-	t_fork	*forks;
+	pthread_mutex_t	*forks;
 	t_philo	*philos;
 }t_data;
 
@@ -55,6 +50,6 @@ void set_values(t_data *data, int ac, char **av);
 
 /*
 FORK = MUTEX
-./philo 8 800 200 200 [5] max de numero de refeiçoes
+./philo 8 800 200 200 [5] max numero de refeiçoes
      philo n, time t die, time to eat, time to sleep
 */

@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2025/12/14 12:05:54 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/14 18:39:38 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	set_values(t_data *data, int ac, char **av)
 	
 }
 
-void	malloc_data(t_data *data)
+int	malloc_data(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
-	data->forks = malloc(sizeof(t_fork) * data->n_philos);
+	if(!data->philos)
+		return 1;
 }

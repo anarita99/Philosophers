@@ -6,29 +6,32 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2025/12/14 11:36:38 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/16 17:23:14 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void *routine(void *add)
+pthread_mutex_t mutex;
+void *routine()
 {
-	long *addnum = (long *)add;
-	printf("Add: %ld\n", *addnum);
-	return (NULL);
+	int i = 0;
+	int nums = 0;
+	
+	while(i < 100)
+	{
+		pthread_mutex_lock(&mutex);
+		i++;
+		nums++;
+		pthread_mutex_unlock(&mutex);
+	}
 }
 
 int main(int ac, char **av)
 {
 	
-	pthread_t thread1;
-	pthread_t thread2;
+	pthread_t threads[5];
 	t_data	*data;
-	long value1 = 1;
-	long value2 = 2;
-
-	if(ac != 5 || ac != 6)
+	/*if(ac != 5 || ac != 6)
 	{
 		printf("Error: Wrong number of arguments.");
 		return 1;
@@ -39,11 +42,25 @@ int main(int ac, char **av)
 		//creating the data
 		//dinner start
 		//no leaks
+	}*/
+	int i = 0;
+	pthread_mutex_init(&mutex, NULL);
+	while(i < 5)
+	{
+		if(pthread_create(&threads[i], NULL, routine, NULL) != 0)
+			return 1;
+		printf("Thread %d has started\n", i);
+		i++;
 	}
-	pthread_create(&thread1, NULL, routine, (void*) &value1);
-	pthread_create(&thread2, NULL, routine, (void*) &value2);
-	pthread_join(thread1, NULL);
-	pthread_join(thread2, NULL);
+	i = 0;
+	while(i < 5)
+	{
+		if(pthread_join(threads[i], NULL) != 0)
+			return 1;
+		printf("Thread %d has finished\n", i);
+		i++;
+	}
+	pthread_mutex_destroy(&mutex);
 	return(0);
 }
 
