@@ -6,31 +6,29 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2025/12/16 17:23:14 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/17 15:33:22 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
 pthread_mutex_t mutex;
 void *routine()
 {
-	int i = 0;
-	int nums = 0;
-	
-	while(i < 100)
-	{
-		pthread_mutex_lock(&mutex);
-		i++;
-		nums++;
-		pthread_mutex_unlock(&mutex);
-	}
+	t_data *data;
+	pthread_mutex_lock(&mutex);
+	is_eating(data->philos);
+	is_thinking();
+	is_sleeping();
+	pthread_mutex_unlock(&mutex);
 }
 
 int main(int ac, char **av)
 {
-	
-	pthread_t threads[5];
-	t_data	*data;
+	t_data	data;
+
+	set_values(&data, av);
+	pthread_t threads[data.n_philos];
 	/*if(ac != 5 || ac != 6)
 	{
 		printf("Error: Wrong number of arguments.");
@@ -45,15 +43,16 @@ int main(int ac, char **av)
 	}*/
 	int i = 0;
 	pthread_mutex_init(&mutex, NULL);
-	while(i < 5)
+	while(i < data.n_philos)
 	{
 		if(pthread_create(&threads[i], NULL, routine, NULL) != 0)
 			return 1;
 		printf("Thread %d has started\n", i);
 		i++;
 	}
+	//monitor
 	i = 0;
-	while(i < 5)
+	while(i < data.n_philos)
 	{
 		if(pthread_join(threads[i], NULL) != 0)
 			return 1;

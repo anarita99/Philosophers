@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:50:19 by adores            #+#    #+#             */
-/*   Updated: 2025/12/14 11:38:16 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/17 11:46:30 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #include "philo.h"
 
-static long	char_to_num(const char *str)
+long	char_to_num(const char *str)
 {
 	long		i;
 	long	result;
@@ -47,7 +47,7 @@ static long	char_to_num(const char *str)
 	}
 	return(result);
 }
-
+/*
 int main(int ac, char **av)
 {
 	long *nums = malloc(sizeof(long) * ac - 1);
@@ -64,4 +64,4 @@ int main(int ac, char **av)
 		i++;
 	}
 	printf("\n");
-}
+}*/
