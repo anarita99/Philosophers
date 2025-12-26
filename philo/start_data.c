@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2025/12/22 15:54:48 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/26 15:37:27 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned long	get_curr_time(void)
 void	set_values(t_data *data, char **av)
 {
 	data->n_philos = char_to_num(av[1]);
-	if(data->n_philos <= 0)
+	if(data->n_philos <= 0 || data->n_philos > 200)
 	{
 		printf("Error: Invalid number of philosophers.\n");
 		return ;

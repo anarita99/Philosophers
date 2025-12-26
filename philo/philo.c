@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2025/12/20 12:29:34 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/26 15:40:40 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int main(int ac, char **av)
 {
 	t_data	data;
 
+	(void)ac;
 	set_values(&data, av);
 	pthread_t threads[data.n_philos];
 	/*if(ac != 5 && ac != 6)
@@ -41,13 +42,13 @@ int main(int ac, char **av)
 		//dinner start
 		//no leaks
 	}*/
-	int i = 0;
+	unsigned long i = 0;
 	pthread_mutex_init(&mutex, NULL);
 	while(i < data.n_philos)
 	{
 		if(pthread_create(&threads[i], NULL, routine, NULL) != 0)
 			return 1;
-		printf("Thread %d has started\n", i);
+		printf("Thread %ld has started\n", i);
 		i++;
 	}
 	//monitor
@@ -56,7 +57,7 @@ int main(int ac, char **av)
 	{
 		if(pthread_join(threads[i], NULL) != 0)
 			return 1;
-		printf("Thread %d has finished\n", i);
+		printf("Thread %ld has finished\n", i);
 		i++;
 	}
 	pthread_mutex_destroy(&mutex);
