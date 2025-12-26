@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:12:07 by adores            #+#    #+#             */
-/*   Updated: 2025/12/17 15:47:00 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/23 14:04:34 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_data t_data;
 
 typedef struct s_philo
 {
-	int				philo_id;
+	unsigned long	philo_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	unsigned long	nb_of_meals;
@@ -42,9 +42,10 @@ typedef struct s_data
 	unsigned long	start_simulation;
 	bool			end_simulation; // a philo dies or all philos full
 	pthread_mutex_t	*forks;
+	pthread_mutex_t print_mutex;
 	pthread_mutex_t	monitor;
 	t_philo			*philos;
-}t_data;
+}	t_data;
 
 void			set_values(t_data *data, char **av);
 int				malloc_data(t_data *data);

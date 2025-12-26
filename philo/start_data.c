@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2025/12/17 15:56:49 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/22 15:54:48 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,53 @@ unsigned long	get_curr_time(void)
 
 void	set_values(t_data *data, char **av)
 {
-	if (malloc_data(data) != 0)
-		return ;
 	data->n_philos = char_to_num(av[1]);
-	//data->time_to_die = char_to_num(av[2]);
+	if(data->n_philos <= 0)
+	{
+		printf("Error: Invalid number of philosophers.\n");
+		return ;
+	}
+	data->time_to_die = char_to_num(av[2]);
 	data->time_to_eat = char_to_num(av[3]);
 	data->time_to_sleep = char_to_num(av[4]);
-	//if(av[5])
-	//	data->limit_meals = char_to_num(av[5]);
-	//else
-	//	data->limit_meals = -1;
+	if(av[5])
+		data->limit_meals = char_to_num(av[5]);
+	else
+		data->limit_meals = -1;
+	if(data->time_to_die <= 0 || data->time_to_eat <= 0 || data->time_to_sleep <= 0)
+		return (printf("Error: Times must be positive\n")) ;
+	if (malloc_data(data) != 0)
+		return ;
+	data->end_simulation = false;
+}
+
+void set_philo_val(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while(i < data->n_philos)
+	{
+		data->philos[i].philo_id = i + 1;
+		data->philos[i].nb_of_meals = 0;
+		data->philos[i].full = false;
+		data->philos[i].data = data;
+		data->philos[i].left_fork = &data->forks[i];
+		data->philos[i].left_fork = &data->forks[(i + 1) % data->n_philos];
+		i++;
+	}
+	
 }
 
 int	malloc_data(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
 	if(!data->philos)
-		return 1;
+		return (1);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if(!data->forks)
-		return 1;
+		return (free(data->philos), 1);
+	return (0);
 }
 
 void	free_data(t_data *data)

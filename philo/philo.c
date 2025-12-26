@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2025/12/17 15:33:22 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/20 12:29:34 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(int ac, char **av)
 
 	set_values(&data, av);
 	pthread_t threads[data.n_philos];
-	/*if(ac != 5 || ac != 6)
+	/*if(ac != 5 && ac != 6)
 	{
 		printf("Error: Wrong number of arguments.");
 		return 1;
