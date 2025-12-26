@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:12:07 by adores            #+#    #+#             */
-/*   Updated: 2025/12/23 14:04:34 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/26 15:53:06 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void 			is_thinking(void);
 void 			is_sleeping(void);
 void			free_data(t_data *data);
 unsigned long	get_curr_time(void);
+void	write_str(char *str, t_philo *philo);
+
 /*
 FORK = MUTEX
 ./philo 8 800 200 200 [5] max numero de refeiçoes

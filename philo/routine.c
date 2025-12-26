@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:19:31 by adores            #+#    #+#             */
-/*   Updated: 2025/12/22 12:19:49 by adores           ###   ########.fr       */
+/*   Updated: 2025/12/26 15:55:04 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void 	is_sleeping(void)
 	t_data	*data;
 
 	usleep(data->time_to_sleep / 1000);
-	printf("is sleeping\n");
+	write_str("is sleeping", data->philos->philo_id);
+	
 }
 
 void sleep_cycle(t_data *data)
