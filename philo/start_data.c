@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2025/12/26 15:37:27 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/06 15:48:48 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,30 @@ void	set_values(t_data *data, char **av)
 	else
 		data->limit_meals = -1;
 	if(data->time_to_die <= 0 || data->time_to_eat <= 0 || data->time_to_sleep <= 0)
-		return (printf("Error: Times must be positive\n")) ;
+		return (printf("Error: Time must be positive\n")) ;
 	if (malloc_data(data) != 0)
 		return ;
 	data->end_simulation = false;
+	data->start_simulation = get_curr_time();
+}
+
+void initialize_mutex(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while(i < data->n_philos)
+	{
+		if(pthread_mutex_init(&data->forks[i], NULL))
+			return ;
+		i++;
+	}
+	if (pthread_mutex_init(&data->print_mutex, NULL))
+		return ;
+	if (pthread_mutex_init(&data->end, NULL))
+		return ;
+	if (pthread_mutex_init(&data->eat_mutex, NULL))
+		return ;
 }
 
 void set_philo_val(t_data *data)
@@ -58,7 +78,7 @@ void set_philo_val(t_data *data)
 		data->philos[i].full = false;
 		data->philos[i].data = data;
 		data->philos[i].left_fork = &data->forks[i];
-		data->philos[i].left_fork = &data->forks[(i + 1) % data->n_philos];
+		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];
 		i++;
 	}
 	
