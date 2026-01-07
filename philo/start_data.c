@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/06 15:48:48 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/07 16:11:17 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	set_values(t_data *data, char **av)
 		data->limit_meals = char_to_num(av[5]);
 	else
 		data->limit_meals = -1;
+	data->full = 0;
 	if(data->time_to_die <= 0 || data->time_to_eat <= 0 || data->time_to_sleep <= 0)
 		return (printf("Error: Time must be positive\n")) ;
 	if (malloc_data(data) != 0)

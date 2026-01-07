@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/06 16:04:44 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/07 16:15:50 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,54 +26,27 @@ void *routine(t_data *data)
 	
 }
 
-void monitor(t_data *data)
-{
-	int i;
-	int full;
-
-	i = 0;
-	while(1)
-	{
-		while(i < data->n_philos)
-		{
-			if(data->philos[i].nb_of_meals == data->limit_meals)
-				full++;
-			if(get_curr_time() - data->philos[i].last_meal_time > data->time_to_die)
-				
-			i++;
-		}
-		if(full == data->n_philos)
-		{
-			pthread_mutex_lock(&data->end);
-			data->end_simulation = true;
-			pthread_mutex_unlock(&data->end);
-			break;
-		}
-			
-	}
-}
-
 int main(int ac, char **av)
 {
 	t_data	data;
+	unsigned long i;
 
-	(void)ac;
-	set_values(&data, av);
-	set_philo_val(&data);
-	pthread_t threads[data.n_philos];
-	/*if(ac != 5 && ac != 6)
+	if(ac != 5 && ac != 6)
 	{
 		printf("Error: Wrong number of arguments.");
 		return 1;
 	}
 	else
 	{
+		set_values(&data, av);
+		set_philo_val(&data);
 		//parsing input
 		//creating the data
 		//dinner start
 		//no leaks
-	}*/
-	unsigned long i = 0;
+	}
+	
+	i = 0;
 	while(i < data.n_philos)
 	{
 		if(pthread_create(&data.philos[i].thread_id, NULL, routine, NULL) != 0)
@@ -81,8 +54,8 @@ int main(int ac, char **av)
 		
 		i++;
 	}
-	
-	//monitor
+	if(pthread_create(&data.monitor, NULL, monitor, NULL) != 0)
+		return 1;
 	i = 0;
 	while(i < data.n_philos)
 	{

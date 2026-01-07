@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:12:07 by adores            #+#    #+#             */
-/*   Updated: 2026/01/06 15:48:14 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/07 16:12:42 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	unsigned long	limit_meals;
+	int				full;
 	unsigned long	start_simulation;
 	bool			end_simulation; // a philo dies or all philos full
 	pthread_mutex_t	*forks;
@@ -61,6 +62,8 @@ void			write_str(char *str, t_philo *philo);
 void			set_philo_val(t_data *data);
 int 			check_end(t_data *data);
 void 			my_usleep(t_data *data, unsigned long time);
+void			monitor(t_data *data);
+
 /*
 FORK = MUTEX
 ./philo 8 800 200 200 [5] max numero de refeiçoes
