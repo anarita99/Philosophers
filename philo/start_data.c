@@ -6,13 +6,14 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/07 16:11:17 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/08 15:14:26 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int	malloc_data(t_data *data);
+void initialize_mutex(t_data *data);
 
 unsigned long	get_curr_time(void)
 {
@@ -24,13 +25,13 @@ unsigned long	get_curr_time(void)
 	return (curr_time);
 }
 
-void	set_values(t_data *data, char **av)
+int	set_values(t_data *data, char **av)
 {
 	data->n_philos = char_to_num(av[1]);
 	if(data->n_philos <= 0 || data->n_philos > 200)
 	{
 		printf("Error: Invalid number of philosophers.\n");
-		return ;
+		return (1);
 	}
 	data->time_to_die = char_to_num(av[2]);
 	data->time_to_eat = char_to_num(av[3]);
@@ -41,16 +42,21 @@ void	set_values(t_data *data, char **av)
 		data->limit_meals = -1;
 	data->full = 0;
 	if(data->time_to_die <= 0 || data->time_to_eat <= 0 || data->time_to_sleep <= 0)
-		return (printf("Error: Time must be positive\n")) ;
+	{
+		printf("Error: Time must be positive\n");
+		return (1);
+	}
 	if (malloc_data(data) != 0)
-		return ;
+		return (1);
 	data->end_simulation = false;
+	initialize_mutex(data);
 	data->start_simulation = get_curr_time();
+	return (0);
 }
 
 void initialize_mutex(t_data *data)
 {
-	int	i;
+	unsigned long	i;
 
 	i = 0;
 	while(i < data->n_philos)
@@ -69,7 +75,7 @@ void initialize_mutex(t_data *data)
 
 void set_philo_val(t_data *data)
 {
-	int i;
+	unsigned long i;
 
 	i = 0;
 	while(i < data->n_philos)

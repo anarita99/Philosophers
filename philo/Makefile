@@ -6,7 +6,7 @@
 #    By: adores <adores@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/14 12:16:34 by adores            #+#    #+#              #
-#    Updated: 2025/12/20 13:15:39 by adores           ###   ########.fr        #
+#    Updated: 2026/01/08 11:46:19 by adores           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 THREADS = -pthread
 
-SRCS = parsing.c philo.c routine.c start_data.c
+SRCS = monitor.c parsing.c philo.c routine.c start_data.c utils.c
 OBJS = $(SRCS:.c=.o)
 
 RM = rm -f

@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:50:19 by adores            #+#    #+#             */
-/*   Updated: 2025/12/17 11:46:30 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/08 15:07:58 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,3 @@ long	char_to_num(const char *str)
 	}
 	return(result);
 }
-/*
-int main(int ac, char **av)
-{
-	long *nums = malloc(sizeof(long) * ac - 1);
-	int i = 0;
-	while(i < ac -1)
-	{
-		nums[i] = parse_number(av[i + 1]);
-		i++;
-	}
-	i = 0;
-	while(i < ac - 1)
-	{
-		printf("%ld ", nums[i]);
-		i++;
-	}
-	printf("\n");
-}*/

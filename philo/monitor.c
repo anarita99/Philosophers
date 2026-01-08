@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:42:28 by adores            #+#    #+#             */
-/*   Updated: 2026/01/07 16:12:16 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/08 14:35:58 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ void	dead_function(t_data *data)
 	pthread_mutex_unlock(&data->print_mutex);
 }
 
-void	monitor(t_data *data)
+void	*monitor(void *data_copy)
 {
-	int i;
+	unsigned long i;
+	t_data	*data;
 
+	data = (t_data *)data_copy;
 	i = -1;
 	while(1)
 	{
+		data->full = 0;
 		while(++i < data->n_philos)
 		{
 			pthread_mutex_lock(&data->eat_mutex);
@@ -41,7 +44,7 @@ void	monitor(t_data *data)
 			if(get_curr_time() - data->philos[i].last_meal_time > data->time_to_die)
 			{
 				dead_function(data);
-				return (pthread_mutex_unlock(&data->eat_mutex));
+				return(pthread_mutex_unlock(&data->eat_mutex), NULL) ;
 			}
 			pthread_mutex_unlock(&data->eat_mutex);
 		}
@@ -53,4 +56,5 @@ void	monitor(t_data *data)
 			break;
 		}		
 	}
+	return (NULL);
 }

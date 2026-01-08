@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:12:07 by adores            #+#    #+#             */
-/*   Updated: 2026/01/07 16:12:42 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/08 15:20:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_data
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	unsigned long	limit_meals;
-	int				full;
+	unsigned long	full;
 	unsigned long	start_simulation;
 	bool			end_simulation; // a philo dies or all philos full
 	pthread_mutex_t	*forks;
@@ -50,10 +50,10 @@ typedef struct s_data
 	t_philo			*philos;
 }	t_data;
 
-void			set_values(t_data *data, char **av);
+int				set_values(t_data *data, char **av);
 int				malloc_data(t_data *data);
 long			char_to_num(const char *str);
-void			is_eating(t_philo *philo);
+void			is_eating(t_data *data);
 void 			is_thinking(t_data *data);
 void 			is_sleeping(t_data *data);
 void			free_data(t_data *data);
@@ -62,7 +62,7 @@ void			write_str(char *str, t_philo *philo);
 void			set_philo_val(t_data *data);
 int 			check_end(t_data *data);
 void 			my_usleep(t_data *data, unsigned long time);
-void			monitor(t_data *data);
+void			*monitor(void *data_copy);
 
 /*
 FORK = MUTEX
