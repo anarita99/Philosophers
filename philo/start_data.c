@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/08 15:14:26 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/12 14:22:30 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	set_values(t_data *data, char **av)
 
 void initialize_mutex(t_data *data)
 {
-	unsigned long	i;
+	int	i;
 
 	i = 0;
 	while(i < data->n_philos)
@@ -75,7 +75,7 @@ void initialize_mutex(t_data *data)
 
 void set_philo_val(t_data *data)
 {
-	unsigned long i;
+	int i;
 
 	i = 0;
 	while(i < data->n_philos)

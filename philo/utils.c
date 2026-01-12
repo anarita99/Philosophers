@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:27:21 by adores            #+#    #+#             */
-/*   Updated: 2026/01/08 14:21:12 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/08 16:04:34 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	write_str(char *str, t_philo *philo)
 
 void destroy_mutexes(t_data *data)
 {
-	unsigned long i;
+	int i;
 
 	i = 0;
 	while(i < data->n_philos)
