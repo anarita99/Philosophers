@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:19:31 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 15:10:08 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/12 15:53:44 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	is_eating(t_philo *philo)
 		write_str("has taken a fork", philo);
 		write_str("is eating", philo);
 		monitor_eat(philo);
-		//my_usleep(philo->data, philo->data->time_to_eat);
+		my_usleep(philo->data, philo->data->time_to_eat);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 	}
@@ -36,7 +36,7 @@ void	is_eating(t_philo *philo)
 		write_str("has taken a fork", philo);
 		write_str("is eating", philo);
 		monitor_eat(philo);
-		//my_usleep(philo->data, philo->data->time_to_eat);
+		my_usleep(philo->data, philo->data->time_to_eat);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 	}
@@ -45,7 +45,7 @@ void	is_eating(t_philo *philo)
 void	monitor_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->eat_mutex);
-	my_usleep(philo->data, philo->data->time_to_eat);
+	//my_usleep(philo->data, philo->data->time_to_eat);
 	philo->last_meal_time = get_curr_time();
 	philo->nb_of_meals++;
 	pthread_mutex_unlock(&philo->data->eat_mutex);
@@ -80,7 +80,7 @@ void my_usleep(t_data *data, unsigned long time)
 	start_time = get_curr_time();
 	while((get_curr_time() - start_time) < time)
 	{
-		usleep(100);
+		usleep(500);
 		if (check_end(data))
 			break;
 	}

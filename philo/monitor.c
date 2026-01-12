@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:42:28 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 15:01:33 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/12 15:35:20 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ void	*monitor(void *data_copy)
 	t_data	*data;
 
 	data = (t_data *)data_copy;
-	i = -1;
+	
 	while (1)
 	{
+		i = -1;
 		data->full = 0;
 		while (++i < data->n_philos)
 		{
 			pthread_mutex_lock(&data->eat_mutex);
 			if (data->philos[i].nb_of_meals == data->limit_meals)
-			data->full++;
+				data->full++;
 			if(get_curr_time() - data->philos[i].last_meal_time > data->time_to_die)
 			{
-				dead_function(data->philos);
+				dead_function(&data->philos[i]);
 				return(pthread_mutex_unlock(&data->eat_mutex), NULL) ;
 			}
 			pthread_mutex_unlock(&data->eat_mutex);
 		}
-		i = -1;
  		if (they_are_full(data) == 0)
 			break;
 	}

@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/09 11:35:18 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/12 15:49:55 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	*routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	if(philo->philo_id % 2 == 0)
+		usleep(200);
+	pthread_mutex_lock(&philo->data->eat_mutex);
 	philo->last_meal_time = get_curr_time();
+	pthread_mutex_unlock(&philo->data->eat_mutex);
 	while(1)
 	{
 		if(check_end(philo->data))
@@ -59,8 +63,9 @@ int main(int ac, char **av)
 	}
 	if(pthread_join(data.monitor, NULL) != 0)
 			return (1);
-	free_data(&data);
+	
 	destroy_mutexes(&data);
+	free_data(&data);
 	return(0);
 }
 
