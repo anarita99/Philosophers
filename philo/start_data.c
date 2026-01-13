@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 14:22:30 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:07:03 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,3 @@ int	malloc_data(t_data *data)
 	return (0);
 }
 
-void	free_data(t_data *data)
-{
-	free(data->philos);
-	free(data->forks);
-}

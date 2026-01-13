@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 15:49:55 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:22:11 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ void	*routine(void *data)
 	return (NULL);
 }
 
+int	create_threads(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while(++i < data->n_philos)
+	{
+		data->philos[i].last_meal_time = data->start_simulation;
+		if(pthread_create(&data->philos[i].thread_id, NULL, routine, &data->philos[i]) != 0)
+			return (1);
+	}
+	if(pthread_create(&data->monitor, NULL, monitor, data) != 0)
+		return (1);
+	return(0);
+}
+
 int main(int ac, char **av)
 {
 	t_data	data;
@@ -46,14 +62,7 @@ int main(int ac, char **av)
 	if (set_values(&data, av) != 0)
 		return (1);
 	set_philo_val(&data);
-	i = -1;
-	while(++i < data.n_philos)
-	{
-		data.philos[i].last_meal_time = data.start_simulation;
-		if(pthread_create(&data.philos[i].thread_id, NULL, routine, &data.philos[i]) != 0)
-			return (1);
-	}
-	if(pthread_create(&data.monitor, NULL, monitor, &data) != 0)
+	if(create_threads(&data) != 0)
 		return (1);
 	i = -1;
 	while(++i < data.n_philos)
@@ -69,4 +78,3 @@ int main(int ac, char **av)
 	return(0);
 }
 
-/*gcc -g -pthread main.c*/

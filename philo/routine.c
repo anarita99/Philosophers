@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:19:31 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 15:53:44 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:04:56 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,4 @@ int check_end(t_data *data)
 	return (pthread_mutex_unlock(&data->end), 0);
 }
 
-void my_usleep(t_data *data, unsigned long time)
-{
-	unsigned long	start_time;
 
-	start_time = get_curr_time();
-	while((get_curr_time() - start_time) < time)
-	{
-		usleep(500);
-		if (check_end(data))
-			break;
-	}
-}
