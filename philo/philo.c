@@ -6,13 +6,13 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/13 15:22:11 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/14 16:06:34 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *data)
+static void	*routine(void *data)
 {
 	t_philo	*philo;
 
@@ -22,6 +22,14 @@ void	*routine(void *data)
 	pthread_mutex_lock(&philo->data->eat_mutex);
 	philo->last_meal_time = get_curr_time();
 	pthread_mutex_unlock(&philo->data->eat_mutex);
+	if (philo->data->n_philos == 1)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		write_str("has taken a fork", philo);
+		my_usleep(philo->data, philo->data->time_to_die);
+		pthread_mutex_unlock(philo->left_fork);
+		return(NULL);
+	}
 	while(1)
 	{
 		if(check_end(philo->data))
@@ -33,7 +41,7 @@ void	*routine(void *data)
 	return (NULL);
 }
 
-int	create_threads(t_data *data)
+static int	create_threads(t_data *data)
 {
 	int	i;
 

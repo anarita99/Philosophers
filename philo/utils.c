@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:27:21 by adores            #+#    #+#             */
-/*   Updated: 2026/01/13 15:07:11 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/14 15:54:29 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void	write_str(char *str, t_philo *philo)
 {
 	unsigned long timestamp;
 
-	pthread_mutex_lock(&philo->data->print_mutex);
-	if(philo->data->end_simulation == true)
-	{
-		pthread_mutex_unlock(&philo->data->print_mutex) ;
+	if (check_end(philo->data))
 		return ;
-	}
+	pthread_mutex_lock(&philo->data->print_mutex);
 	timestamp = get_curr_time() - philo->data->start_simulation;
 	printf("%lu %d %s\n", timestamp, philo->philo_id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);

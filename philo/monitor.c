@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:42:28 by adores            #+#    #+#             */
-/*   Updated: 2026/01/12 15:35:20 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/14 15:49:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*monitor(void *data_copy)
 		}
  		if (they_are_full(data) == 0)
 			break;
+		usleep(1000);
 	}
 	return (NULL);
 }
