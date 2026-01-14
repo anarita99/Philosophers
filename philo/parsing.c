@@ -6,17 +6,9 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:50:19 by adores            #+#    #+#             */
-/*   Updated: 2026/01/08 15:07:58 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/14 15:07:06 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* ./philo 5      800  200    200     [5]
-         av[1]   av[2] av[3]  av[4]  av[5]
-1. actual  numbers
-2.not > INT MAX
-3.timestamps > 60ms
-
-*/
 
 #include "philo.h"
 
