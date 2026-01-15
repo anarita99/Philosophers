@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/14 16:06:34 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/15 15:01:07 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static void	*routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if(philo->philo_id % 2 == 0)
+	if (philo->philo_id % 2 == 0)
 		usleep(200);
 	pthread_mutex_lock(&philo->data->eat_mutex);
-	philo->last_meal_time = get_curr_time();
+	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->data->eat_mutex);
 	if (philo->data->n_philos == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		write_str("has taken a fork", philo);
-		my_usleep(philo->data, philo->data->time_to_die);
+		my_usleep(philo->data, philo->data->to_die);
 		pthread_mutex_unlock(philo->left_fork);
-		return(NULL);
+		return (NULL);
 	}
-	while(1)
+	while (1)
 	{
-		if(check_end(philo->data))
-			break;
+		if (check_end(philo->data))
+			break ;
 		is_eating(philo);
 		is_sleeping(philo);
 		is_thinking(philo);
@@ -46,23 +46,24 @@ static int	create_threads(t_data *data)
 	int	i;
 
 	i = -1;
-	while(++i < data->n_philos)
+	while (++i < data->n_philos)
 	{
 		data->philos[i].last_meal_time = data->start_simulation;
-		if(pthread_create(&data->philos[i].thread_id, NULL, routine, &data->philos[i]) != 0)
+		if (pthread_create(&data->philos[i].thread_id,
+				NULL, routine, &data->philos[i]) != 0)
 			return (1);
 	}
-	if(pthread_create(&data->monitor, NULL, monitor, data) != 0)
+	if (pthread_create(&data->monitor, NULL, monitor, data) != 0)
 		return (1);
-	return(0);
+	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
-	int i;
+	int		i;
 
-	if(ac != 5 && ac != 6)
+	if (ac != 5 && ac != 6)
 	{
 		printf("Error: Wrong number of arguments.");
 		return (1);
@@ -70,19 +71,17 @@ int main(int ac, char **av)
 	if (set_values(&data, av) != 0)
 		return (1);
 	set_philo_val(&data);
-	if(create_threads(&data) != 0)
+	if (create_threads(&data) != 0)
 		return (1);
 	i = -1;
-	while(++i < data.n_philos)
+	while (++i < data.n_philos)
 	{
-		if(pthread_join(data.philos[i].thread_id, NULL) != 0)
+		if (pthread_join(data.philos[i].thread_id, NULL) != 0)
 			return (1);
 	}
-	if(pthread_join(data.monitor, NULL) != 0)
-			return (1);
-	
+	if (pthread_join(data.monitor, NULL) != 0)
+		return (1);
 	destroy_mutexes(&data);
 	free_data(&data);
-	return(0);
+	return (0);
 }
-

@@ -6,19 +6,19 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/13 15:07:03 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/15 15:01:41 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	malloc_data(t_data *data);
-void initialize_mutex(t_data *data);
+int		malloc_data(t_data *data);
+void	initialize_mutex(t_data *data);
 
-unsigned long	get_curr_time(void)
+unsigned long	get_time(void)
 {
 	unsigned long	curr_time;
-	struct timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	curr_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
@@ -28,20 +28,20 @@ unsigned long	get_curr_time(void)
 int	set_values(t_data *data, char **av)
 {
 	data->n_philos = char_to_num(av[1]);
-	if(data->n_philos <= 0 || data->n_philos > 200)
+	if (data->n_philos <= 0 || data->n_philos > 200)
 	{
 		printf("Error: Invalid number of philosophers.\n");
 		return (1);
 	}
-	data->time_to_die = char_to_num(av[2]);
-	data->time_to_eat = char_to_num(av[3]);
-	data->time_to_sleep = char_to_num(av[4]);
-	if(av[5])
+	data->to_die = char_to_num(av[2]);
+	data->to_eat = char_to_num(av[3]);
+	data->to_sleep = char_to_num(av[4]);
+	if (av[5])
 		data->limit_meals = char_to_num(av[5]);
 	else
 		data->limit_meals = -1;
 	data->full = 0;
-	if(data->time_to_die <= 0 || data->time_to_eat <= 0 || data->time_to_sleep <= 0)
+	if (data->to_die <= 0 || data->to_eat <= 0 || data->to_sleep <= 0)
 	{
 		printf("Error: Time must be positive\n");
 		return (1);
@@ -50,18 +50,18 @@ int	set_values(t_data *data, char **av)
 		return (1);
 	data->end_simulation = false;
 	initialize_mutex(data);
-	data->start_simulation = get_curr_time();
+	data->start_simulation = get_time();
 	return (0);
 }
 
-void initialize_mutex(t_data *data)
+void	initialize_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while(i < data->n_philos)
+	while (i < data->n_philos)
 	{
-		if(pthread_mutex_init(&data->forks[i], NULL))
+		if (pthread_mutex_init(&data->forks[i], NULL))
 			return ;
 		i++;
 	}
@@ -73,12 +73,12 @@ void initialize_mutex(t_data *data)
 		return ;
 }
 
-void set_philo_val(t_data *data)
+void	set_philo_val(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < data->n_philos)
+	while (i < data->n_philos)
 	{
 		data->philos[i].philo_id = i + 1;
 		data->philos[i].nb_of_meals = 0;
@@ -88,17 +88,15 @@ void set_philo_val(t_data *data)
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];
 		i++;
 	}
-	
 }
 
 int	malloc_data(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
-	if(!data->philos)
+	if (!data->philos)
 		return (1);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
-	if(!data->forks)
+	if (!data->forks)
 		return (free(data->philos), 1);
 	return (0);
 }
-
