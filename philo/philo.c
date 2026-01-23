@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/15 15:01:07 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/23 16:15:26 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static void	*routine(void *data)
 		if (check_end(philo->data))
 			break ;
 		is_eating(philo);
+		if (check_end(philo->data))
+			break ;
 		is_sleeping(philo);
+		if (check_end(philo->data))
+			break ;
 		is_thinking(philo);
 	}
 	return (NULL);
@@ -65,7 +69,7 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 	{
-		printf("Error: Wrong number of arguments.");
+		printf("Error: Wrong number of arguments.\n");
 		return (1);
 	}
 	if (set_values(&data, av) != 0)
