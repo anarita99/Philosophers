@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/23 16:15:26 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/23 17:04:54 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ static void	*routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if (philo->philo_id % 2 == 0)
-		usleep(200);
-	pthread_mutex_lock(&philo->data->eat_mutex);
-	philo->last_meal_time = get_time();
-	pthread_mutex_unlock(&philo->data->eat_mutex);
 	if (philo->data->n_philos == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
@@ -30,6 +25,11 @@ static void	*routine(void *data)
 		pthread_mutex_unlock(philo->left_fork);
 		return (NULL);
 	}
+	if (philo->philo_id % 2 == 0)
+		usleep(200);
+	pthread_mutex_lock(&philo->data->eat_mutex);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->data->eat_mutex);
 	while (1)
 	{
 		if (check_end(philo->data))
