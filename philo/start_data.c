@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/23 16:01:09 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/26 11:52:07 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ unsigned long	get_time(void)
 	return (curr_time);
 }
 
-int	set_values(t_data *data, char **av)
+int	nphilos_valid(t_data *data, char **av)
 {
 	data->n_philos = char_to_num(av[1]);
 	if (data->n_philos <= 0 || data->n_philos > 200)
@@ -33,6 +33,13 @@ int	set_values(t_data *data, char **av)
 		printf("Error: Invalid number of philosophers.\n");
 		return (1);
 	}
+	return (0);
+}
+
+int	set_values(t_data *data, char **av)
+{
+	if (nphilos_valid(data, av) == 1)
+		return (1);
 	data->to_die = char_to_num(av[2]);
 	data->to_eat = char_to_num(av[3]);
 	data->to_sleep = char_to_num(av[4]);
@@ -92,15 +99,4 @@ void	set_philo_val(t_data *data)
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];
 		i++;
 	}
-}
-
-int	malloc_data(t_data *data)
-{
-	data->philos = malloc(sizeof(t_philo) * data->n_philos);
-	if (!data->philos)
-		return (1);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
-	if (!data->forks)
-		return (free(data->philos), 1);
-	return (0);
 }

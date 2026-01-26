@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:27:21 by adores            #+#    #+#             */
-/*   Updated: 2026/01/23 17:19:10 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/26 11:46:05 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ void	my_usleep(t_data *data, unsigned long time)
 		if (check_end(data))
 			break ;
 	}
+}
+
+int	malloc_data(t_data *data)
+{
+	data->philos = malloc(sizeof(t_philo) * data->n_philos);
+	if (!data->philos)
+		return (1);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
+	if (!data->forks)
+		return (free(data->philos), 1);
+	return (0);
 }
 
 void	free_data(t_data *data)
