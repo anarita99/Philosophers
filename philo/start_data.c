@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 11:37:06 by adores            #+#    #+#             */
-/*   Updated: 2026/01/26 11:52:07 by adores           ###   ########.fr       */
+/*   Updated: 2026/01/26 11:55:28 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	set_values(t_data *data, char **av)
 	if (av[5])
 	{
 		data->limit_meals = char_to_num(av[5]);
-		if(data->limit_meals == 0)
-			return 1;
+		if (data->limit_meals == 0)
+			return (1);
 	}
 	else
 		data->limit_meals = -1;
