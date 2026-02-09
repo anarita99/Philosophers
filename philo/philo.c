@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:11:49 by adores            #+#    #+#             */
-/*   Updated: 2026/01/23 17:04:54 by adores           ###   ########.fr       */
+/*   Updated: 2026/02/09 12:14:26 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ static void	*routine(void *data)
 		if (check_end(philo->data))
 			break ;
 		is_eating(philo);
-		if (check_end(philo->data))
-			break ;
 		is_sleeping(philo);
-		if (check_end(philo->data))
-			break ;
 		is_thinking(philo);
 	}
 	return (NULL);

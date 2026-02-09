@@ -6,7 +6,7 @@
 /*   By: adores <adores@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:27:21 by adores            #+#    #+#             */
-/*   Updated: 2026/01/26 11:46:05 by adores           ###   ########.fr       */
+/*   Updated: 2026/02/09 12:15:18 by adores           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	write_str(char *str, t_philo *philo)
 {
 	unsigned long	timestamp;
 
-	/* if (check_end(philo->data))
-		return ; */
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if (check_end(philo->data))
 	{
