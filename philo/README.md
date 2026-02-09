@@ -32,7 +32,7 @@ The project follows specific rules:
 ```bash
 ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_meals]
 ```
-- `number_of_philosophers`: How many philosophers (>= 3)
+- `number_of_philosophers`: How many philosophers
 - `time_to_die`: ms before a philosopher dies without eating
 - `time_to_eat`: ms it takes a philosopher to eat
 - `time_to_sleep`: ms spent sleeping
